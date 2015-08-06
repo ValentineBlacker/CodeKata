@@ -1,5 +1,5 @@
 
-from datetime import time as time
+from datetime import time
 
 class Babysit(object):
     
@@ -8,6 +8,10 @@ class Babysit(object):
         self.bed_time = bedtime
         self.end_time = endtime
         
+        self.start_to_bed = 12
+        self.bed_to_mid = 8
+        self.mid_to_end = 16
+                
     def check_start_time(self, starttime):
         #returns TRUE if start time is acceptable. Can start any time between 5:00 pm and 4:00 am
         if starttime >= time(17,00) or starttime <= time(04,00):
@@ -27,6 +31,18 @@ class Babysit(object):
         elif bedtime == time(00,00):
             return True
         else: return False
+
+    def pay_start_to_bed(self, starttime, bedtime):
+        number_of_hours = abs(int(bedtime.hour) - int(starttime.hour))
+        number_of_minutes = int(starttime.minute) + int (bedtime.minute)
+
+        if number_of_minutes >60:
+            number_of_hours += 2
+        elif number_of_minutes < 60 and number_of_minutes > 0:
+            number_of_hours +=1
+
+        return number_of_hours * 12
+        
 
 if __name__ == '__main__':
     main = Babysit
