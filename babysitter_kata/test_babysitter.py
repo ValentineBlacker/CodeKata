@@ -60,6 +60,7 @@ class testBabysitter(unittest.TestCase):
     def test_TotalPay(self):
         #calculate total pay using previous methods
         self.assertEqual(120, Babysit.calculate_total(self.babysitter, time(19,30), time(22,30), time(3,30)))
+        self.assertEqual(64, Babysit.calculate_total(self.babysitter, time(17,25), time(18,30), time(23,30)))
 
 if __name__ == '__main__':
     unittest.main()

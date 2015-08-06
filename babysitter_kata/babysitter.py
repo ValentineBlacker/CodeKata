@@ -42,6 +42,7 @@ class Babysit(object):
             bedtime_hour = 24
         if int(bedtime.minute) > 0:
             bedtime_hour+= 1
+        #print bedtime_hour
         number_of_hours = (bedtime_hour - int(starttime.hour))      
         if number_of_hours == 0:
             number_of_hours = 1
@@ -78,8 +79,7 @@ class Babysit(object):
 
     def calculate_total(self, starttime, bedtime, endtime):
         stb = self.pay_start_to_bed(starttime, bedtime)        
-        btm = self.pay_bed_to_mid(bedtime, endtime)
-        #print btm
+        btm = self.pay_bed_to_mid(bedtime, endtime)        
         mte = self.pay_mid_to_end(endtime)        
         total = stb+btm+mte
         return total
