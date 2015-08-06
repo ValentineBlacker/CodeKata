@@ -67,7 +67,8 @@ class Babysit(object):
         number_of_hours = (bedtime_hour - int(starttime.hour))      
         if number_of_hours == 0:
             number_of_hours = 1
-        return (number_of_hours * self.start_to_bed)
+        total = (number_of_hours * self.start_to_bed)
+        return total
 
     def pay_bed_to_mid(self, bedtime, endtime):
         #calculates to end time if end time is before midnight.
@@ -84,7 +85,8 @@ class Babysit(object):
         if int(bedtime.minute) > 0:
             bedtime_hour += 1        
         number_of_hours = ending_hour - bedtime_hour        
-        return (number_of_hours * self.bed_to_mid)       
+        total = (number_of_hours * self.bed_to_mid)
+        return total
         
 
     def pay_mid_to_end(self, endtime):
@@ -96,13 +98,25 @@ class Babysit(object):
             return 0
         if int(endtime.minute) > 0:
             ending_hour += 1
-        return ending_hour * self.mid_to_end
+        total = ending_hour * self.mid_to_end
+        return total
 
     def calculate_total(self, starttime, bedtime, endtime):
         stb = self.pay_start_to_bed(starttime, bedtime)        
         btm = self.pay_bed_to_mid(bedtime, endtime)        
         mte = self.pay_mid_to_end(endtime)        
         total = stb+btm+mte
+        return total
+
+    def test_and_calculate(self, starttime, bedtime, endtime):
+        start_time_ok = self.check_start_time(starttime)
+        end_time_ok =self.check_end_time(endtime)
+        bed_time_ok = self.check_bed_time(bedtime)
+        times_rational = self.check_times_for_rationality(starttime, bedtime, endtime)
+        for x in [start_time_ok, end_time_ok, bed_time_ok, times_rational]:
+            if x == False:
+                return None
+        else: total = self.calculate_total(starttime, bedtime, endtime)
         return total
 
 if __name__ == '__main__':

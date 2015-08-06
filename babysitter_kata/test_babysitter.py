@@ -70,6 +70,11 @@ class testBabysitter(unittest.TestCase):
         self.assertFalse(Babysit.check_times_for_rationality(self.babysitter, time(18,00), time(19,45), time(19,30)))
         self.assertFalse(Babysit.check_times_for_rationality(self.babysitter, time(19,30), time(19,45), time(19,00)))
 
+    def test_EverythingInSequence(self):
+        #test if all methods run correctly when called by a single method
+        self.assertEqual(120, Babysit.test_and_calculate(self.babysitter, time(19,30), time(22,30), time(3,30)))
+        self.assertEqual(None, Babysit.test_and_calculate(self.babysitter, time(13,30), time(22,30), time(3,30)))
+        self.assertEqual(None, Babysit.test_and_calculate(self.babysitter, time(20,30), time(19,30), time(3,30)))
 
 
 if __name__ == '__main__':
