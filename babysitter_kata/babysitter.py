@@ -102,6 +102,7 @@ class Babysit(object):
         return total
 
     def calculate_total(self, starttime, bedtime, endtime):
+        #calculates total pay
         stb = self.pay_start_to_bed(starttime, bedtime)        
         btm = self.pay_bed_to_mid(bedtime, endtime)        
         mte = self.pay_mid_to_end(endtime)        
@@ -109,6 +110,7 @@ class Babysit(object):
         return total
 
     def test_and_calculate(self, starttime, bedtime, endtime):
+        #test input. returns NONE if times are not allowed, otherwise returns total
         start_time_ok = self.check_start_time(starttime)
         end_time_ok =self.check_end_time(endtime)
         bed_time_ok = self.check_bed_time(bedtime)
@@ -118,6 +120,11 @@ class Babysit(object):
                 return None
         else: total = self.calculate_total(starttime, bedtime, endtime)
         return total
+
+    def convert_raw_input(self, rawstring):
+        hours = int(rawstring[:2])
+        minutes = int(rawstring[3:])        
+        return time(hours,minutes)
 
 if __name__ == '__main__':
     main = Babysit
