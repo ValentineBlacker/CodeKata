@@ -52,14 +52,16 @@ class Babysit(object):
         #otherwise calculates to midnight. Partial hours paid
         #at higher pre-bedtime rate.
         ending_hour = int(endtime.hour)
+        #if ending after midnight, calculate from midnight
         if ending_hour < 17:
             ending_hour = 24
-        if int(endtime.minute) > 0:
+        #otherwise round hour up
+        elif int(endtime.minute) > 0:
             ending_hour += 1
         bedtime_hour = int(bedtime.hour)
         if int(bedtime.minute) > 0:
-            bedtime_hour += 1
-        number_of_hours = ending_hour - bedtime_hour
+            bedtime_hour += 1        
+        number_of_hours = ending_hour - bedtime_hour        
         return (number_of_hours * self.bed_to_mid)       
         
 
@@ -73,6 +75,14 @@ class Babysit(object):
         if int(endtime.minute) > 0:
             ending_hour += 1
         return ending_hour * self.mid_to_end
+
+    def calculate_total(self, starttime, bedtime, endtime):
+        stb = self.pay_start_to_bed(starttime, bedtime)        
+        btm = self.pay_bed_to_mid(bedtime, endtime)
+        #print btm
+        mte = self.pay_mid_to_end(endtime)        
+        total = stb+btm+mte
+        return total
 
 if __name__ == '__main__':
     main = Babysit
