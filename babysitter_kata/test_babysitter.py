@@ -8,26 +8,18 @@ class testBabysitter(unittest.TestCase):
     I assumed that the babysitter could work for 0 minutes (but get paid $0 for it),
     and that the kids had to be in bed by midnight, which is reasonable.
     """
-
-    #TODO: collapse checking start and end times into 1 function
-    
+      
     def setUp(self):
         #init babysitter class
         self.babysitter = Babysit()
 
-    def test_StartTime(self):
-        #can't start too early
-        self.assertTrue(Babysit.check_start_time(self.babysitter, time(17,00)))
-        self.assertTrue(Babysit.check_start_time(self.babysitter, time(04,00)))        
-        self.assertFalse (Babysit.check_start_time(self.babysitter, time(16,59)))
-        self.assertFalse (Babysit.check_start_time(self.babysitter, time(04,01)))        
-
-    def test_EndTime(self):
-        #can't work too late
-        self.assertTrue(Babysit.check_end_time(self.babysitter, time(04,00)))
-        self.assertTrue(Babysit.check_end_time(self.babysitter, time(17,00)))
-        self.assertFalse(Babysit.check_end_time(self.babysitter, time(04,01)))
-        self.assertFalse(Babysit.check_end_time(self.babysitter, time(16,59)))        
+    def test_StartAndEndTime(self):
+        #can't start too early or end too late
+        self.assertTrue(Babysit.check_start_or_end_time(self.babysitter, time(17,00)))
+        self.assertTrue(Babysit.check_start_or_end_time(self.babysitter, time(04,00)) )      
+        self.assertFalse(Babysit.check_start_or_end_time(self.babysitter, time(04,01)))
+        self.assertFalse(Babysit.check_start_or_end_time(self.babysitter, time(16,59)) )
+         
 
     def test_BedTime(self):
         #kids need to be in bed before midnight, but after we've started sitting
@@ -86,22 +78,16 @@ class testBabysitter(unittest.TestCase):
         self.assertEqual(None, self.babysitter.convert_raw_input('agwgawea'))
 
     def test_InputStartTime(self):
-        self.assertEqual(time(17,34), self.babysitter.handle_start_input('17:34'))
-        self.assertEqual(None, self.babysitter.handle_start_input('12:34'))
+        self.assertEqual(time(17,34), self.babysitter.handle_start_input('17:34'))        
         self.assertEqual(None, self.babysitter.handle_start_input('asdfdfs'))
 
     def test_InputBedTime(self):
-        self.assertEqual(time(18,34), self.babysitter.handle_bed_input('18:34'))
-        self.assertEqual(None, self.babysitter.handle_bed_input('01:34'))
+        self.assertEqual(time(18,34), self.babysitter.handle_bed_input('18:34'))        
         self.assertEqual(None, self.babysitter.handle_bed_input('asdfdfs'))
 
     def test_InputEndTime(self):
-        self.assertEqual(time(18,34), self.babysitter.handle_end_input('18:34'))
-        self.assertEqual(None, self.babysitter.handle_end_input('05:34'))
+        self.assertEqual(time(18,34), self.babysitter.handle_end_input('18:34'))        
         self.assertEqual(None, self.babysitter.handle_end_input('asdfdfs'))
-
-        
-
 
 if __name__ == '__main__':
     unittest.main()

@@ -9,17 +9,11 @@ class Babysit(object):
         self.bed_to_mid = 8
         self.mid_to_end = 16
                 
-    def check_start_time(self, starttime):
-        #returns TRUE if start time is acceptable. Can start any time between 5:00 pm and 4:00 am
-        if starttime >= time(17,00) or starttime <= time(04,00):
+    def check_start_or_end_time(self, thetime):
+        #returns TRUE if start time is acceptable. Can start any time between 5:00 pm and 4:00 am       
+        if thetime >= time(17,00) or thetime <= time(04,00):
             return True
-        else: return False
-
-    def check_end_time(self, endtime):
-        #returns TRUE if end time is acceptable. Must end at or before 4:00 am. May end as early as 5:00 pm
-        if endtime <= time(04,00) or endtime >= time(17,00):
-            return True
-        else: return False
+        else: return False   
 
     def check_bed_time(self, bedtime):
         #returns TRUE if bedtime is acceptable. Must be between 5 pm and midnight
@@ -59,8 +53,7 @@ class Babysit(object):
         if bedtime_hour == 0:
             bedtime_hour = 24
         if int(bedtime.minute) > 0:
-            bedtime_hour+= 1
-        #print bedtime_hour
+            bedtime_hour+= 1        
         number_of_hours = (bedtime_hour - int(starttime.hour))      
         if number_of_hours == 0:
             number_of_hours = 1
@@ -84,7 +77,6 @@ class Babysit(object):
         number_of_hours = ending_hour - bedtime_hour        
         total = (number_of_hours * self.bed_to_mid)
         return total
-        
 
     def pay_mid_to_end(self, endtime):
         #calculates pay from midnight to end time
@@ -108,8 +100,8 @@ class Babysit(object):
 
     def test_and_calculate(self, starttime, bedtime, endtime):
         #test input. returns NONE if times are not allowed, otherwise returns total
-        start_time_ok = self.check_start_time(starttime)
-        end_time_ok =self.check_end_time(endtime)
+        start_time_ok = self.check_start_or_end_time(starttime)
+        end_time_ok = self.check_start_or_end_time(endtime)
         bed_time_ok = self.check_bed_time(bedtime)
         times_rational = self.check_times_for_rationality(starttime, bedtime, endtime)
         for x in [start_time_ok, end_time_ok, bed_time_ok, times_rational]:
@@ -131,7 +123,7 @@ class Babysit(object):
             else: return None
         else: return None
 
-    def handle_start_input(self, starttime):
+    def handle_start_input(self, starttime):        
         starttime = self.convert_raw_input(starttime)
         if starttime == None:
             print ('please format time correctly. program now exiting.\n')
