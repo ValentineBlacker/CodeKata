@@ -62,7 +62,17 @@ class Babysit(object):
         number_of_hours = ending_hour - bedtime_hour
         return (number_of_hours * self.bed_to_mid)       
         
-        
+
+    def pay_mid_to_end(self, endtime):
+        #calculates pay from midnight to end time
+        #returns 0 if endtime is before midnight.
+        #pays full hour for any partials.
+        ending_hour = int(endtime.hour)
+        if ending_hour > 4:
+            return 0
+        if int(endtime.minute) > 0:
+            ending_hour += 1
+        return ending_hour * self.mid_to_end
 
 if __name__ == '__main__':
     main = Babysit

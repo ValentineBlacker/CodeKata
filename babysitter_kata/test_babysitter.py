@@ -50,6 +50,12 @@ class testBabysitter(unittest.TestCase):
         self.assertEqual(16, Babysit.pay_bed_to_mid(self.babysitter, time(22,00),time(00,00)))
         self.assertEqual(16, Babysit.pay_bed_to_mid(self.babysitter, time(17,30),time(20,00)))
 
+    def test_HoursPaidFromMidToEnd(self):
+        #if end time is after midnight, pay $16 an hour from midnight to end.
+        #partial hours count as full.
+        self.assertEqual(0, Babysit.pay_mid_to_end(self.babysitter, time(23,30)))
+        self.assertEqual(32, Babysit.pay_mid_to_end(self.babysitter, time(01,30)))                                                   
+
 if __name__ == '__main__':
     unittest.main()
     
