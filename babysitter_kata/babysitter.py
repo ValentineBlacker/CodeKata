@@ -33,15 +33,14 @@ class Babysit(object):
         else: return False
 
     def pay_start_to_bed(self, starttime, bedtime):
-        number_of_hours = abs(int(bedtime.hour) - int(starttime.hour))
-        number_of_minutes = int(starttime.minute) + int (bedtime.minute)
-
-        if number_of_minutes >60:
-            number_of_hours += 2
-        elif number_of_minutes < 60 and number_of_minutes > 0:
-            number_of_hours +=1
-
-        return number_of_hours * 12
+        #we deal only with hours here, since we get paid for a full hour at start
+        #even if we begin at the half hour, and if bedtime is in the middle of an hour
+        #we get paid the higher rate for that entire hour
+        #so we get paid at least 1 hour at the pre-bedtime rate
+        number_of_hours = abs(int(bedtime.hour) - int(starttime.hour))      
+        if number_of_hours == 0:
+            number_of_hours = 1
+        return number_of_hours * self.start_to_bed
         
 
 if __name__ == '__main__':

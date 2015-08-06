@@ -5,6 +5,8 @@ from babysitter import Babysit
 class testBabysitter(unittest.TestCase):
     """
     A test class for the Babysitter module
+    I assumed that the babysitter could work for 0 minutes (but get paid $0 for it),
+    and that the kids had to be in bed by midnight, which is reasonable.
     """
 
     def setUp(self):
@@ -35,8 +37,7 @@ class testBabysitter(unittest.TestCase):
     def test_HoursPaidFromStartToBed(self):
         #make sure babysitter gets paid $12/hr from start to bedtime
         self.assertEqual(36, Babysit.pay_start_to_bed(self.babysitter, time(17,00),time(20,00)))
-        self.assertEqual(12, Babysit.pay_start_to_bed(self.babysitter, time(17,00), time(17,01)))
-        
+        self.assertEqual(12, Babysit.pay_start_to_bed(self.babysitter, time(17,00), time(17,01)))        
 
 if __name__ == '__main__':
     unittest.main()
