@@ -95,6 +95,11 @@ class testBabysitter(unittest.TestCase):
         self.assertEqual(None, self.babysitter.handle_bed_input('01:34'))
         self.assertEqual(None, self.babysitter.handle_bed_input('asdfdfs'))
 
+    def test_InputEndTime(self):
+        self.assertEqual(time(18,34), self.babysitter.handle_end_input('18:34'))
+        self.assertEqual(None, self.babysitter.handle_end_input('05:34'))
+        self.assertEqual(None, self.babysitter.handle_end_input('asdfdfs'))
+
         
 
 

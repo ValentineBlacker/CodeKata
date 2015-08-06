@@ -1,5 +1,6 @@
 
 from datetime import time
+import sys
 
 class Babysit(object):
     
@@ -7,7 +8,6 @@ class Babysit(object):
         self.start_to_bed = 12
         self.bed_to_mid = 8
         self.mid_to_end = 16
-       
                 
     def check_start_time(self, starttime):
         #returns TRUE if start time is acceptable. Can start any time between 5:00 pm and 4:00 am
@@ -134,27 +134,57 @@ class Babysit(object):
     def handle_start_input(self, starttime):
         starttime = self.convert_raw_input(starttime)
         if starttime == None:
-            print ('please format time correctly')
-            return None
-        if self.check_start_time(starttime) == False:
-            print ('start time cannot be earlier than 17:00 or later than 04:00')
-            return None
+            print ('please format time correctly. program now exiting.\n')
+            return None        
         else: return starttime
 
     def handle_bed_input(self, bedtime):
         bedtime = self.convert_raw_input(bedtime)
         if bedtime == None:
-            print ('please format time correctly')
-            return None
-        if self.check_bed_time(bedtime) == False:
-            print ('bed time must be between 17:00 and 0:00')
-            return None
+            print ('please format time correctly. program now exiting.\n')
+            return None        
         else: return bedtime
 
-    
-        
-    
+    def handle_end_input(self, endtime):
+        endtime = self.convert_raw_input(endtime)
+        if endtime == None:
+            print ('please format time correctly. program now exiting.\n')
+            return None        
+        else: return endtime
                 
 if __name__ == '__main__':
     main = Babysit
-    Babysit()
+    babysitter = Babysit()
+    print ('\nwelcome to the babysitter pay calculator! the babysitter gets paid ${0} \n'.format(babysitter.start_to_bed) +\
+           'for each hour between start time and bedtime, ${0} for each hour between \n'.format(babysitter.bed_to_mid) +\
+           'between bedtime and midnigh, and ${0} for each hour after midnight. the \n'.format(babysitter.mid_to_end) +\
+           'babysitter cannot begin before 17:00 and must leave before 04:00. partial \n' +\
+           'hours are rounded up to full hours. \n\n' )
+        
+    raw_start = raw_input('please enter a starting time in HH:MM format.\n\n')
+                          
+    starttime = babysitter.handle_start_input(raw_start)
+    print('\n')
+    if starttime == None:
+        sys.exit(0)
+    raw_bed = raw_input('please enter a bedtime in HH:MM format \n\n')
+                      
+    bedtime = babysitter.handle_bed_input(raw_bed)
+    print('\n')
+    if bedtime == None:
+        sys.exit(0)
+    raw_end = raw_input('please enter an ending time in HH:MM format \n\n')
+                       
+    endtime = babysitter.handle_end_input(raw_end)
+    print('\n')
+    if endtime == None:
+        sys.exit(0)
+    total_pay = babysitter.test_and_calculate(starttime, bedtime, endtime)
+    if total_pay == None:
+        print('problem with times. start and end times must be between \n' +\
+               '17:00 and 04:00. bedtime must be before midnight. endtime \n' + \
+              'be after bedtime, and bedtime must be after start time.'+ \
+              'program now exiting.\n')
+    else: print ('your total pay will be ${0}\n'.format(total_pay))
+    sys.exit(0)
+    
