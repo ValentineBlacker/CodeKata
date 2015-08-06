@@ -9,6 +9,8 @@ class testBabysitter(unittest.TestCase):
     and that the kids had to be in bed by midnight, which is reasonable.
     """
 
+    #TODO: make sure end time is not before bedtime, bedtime not before start time
+    
     def setUp(self):
         #init babysitter class
         self.babysitter = Babysit()
@@ -37,7 +39,16 @@ class testBabysitter(unittest.TestCase):
     def test_HoursPaidFromStartToBed(self):
         #make sure babysitter gets paid $12/hr from start to bedtime
         self.assertEqual(36, Babysit.pay_start_to_bed(self.babysitter, time(17,00),time(20,00)))
-        self.assertEqual(12, Babysit.pay_start_to_bed(self.babysitter, time(17,00), time(17,01)))        
+        self.assertEqual(12, Babysit.pay_start_to_bed(self.babysitter, time(17,00), time(17,01)))
+        self.assertEqual(12, Babysit.pay_start_to_bed(self.babysitter, time(23,00), time(00,00)))
+
+    def test_HoursPaidFromBedToMid(self):
+        #get paid $8 between when the kids go to bed and midnight.
+        #partial hours are paid at higher $12 rate
+        #must calculate case where end time is before midnight
+        self.assertEqual(8, Babysit.pay_bed_to_mid(self.babysitter, time(22,30), time (01,00)))
+        self.assertEqual(16, Babysit.pay_bed_to_mid(self.babysitter, time(22,00),time(00,00)))
+        self.assertEqual(16, Babysit.pay_bed_to_mid(self.babysitter, time(17,30),time(20,00)))
 
 if __name__ == '__main__':
     unittest.main()

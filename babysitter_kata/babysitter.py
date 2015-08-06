@@ -37,10 +37,31 @@ class Babysit(object):
         #even if we begin at the half hour, and if bedtime is in the middle of an hour
         #we get paid the higher rate for that entire hour
         #so we get paid at least 1 hour at the pre-bedtime rate
-        number_of_hours = abs(int(bedtime.hour) - int(starttime.hour))      
+        bedtime_hour = int(bedtime.hour)
+        if bedtime_hour == 0:
+            bedtime_hour = 24
+        if int(bedtime.minute) > 0:
+            bedtime_hour+= 1
+        number_of_hours = (bedtime_hour - int(starttime.hour))      
         if number_of_hours == 0:
             number_of_hours = 1
-        return number_of_hours * self.start_to_bed
+        return (number_of_hours * self.start_to_bed)
+
+    def pay_bed_to_mid(self, bedtime, endtime):
+        #calculates to end time if end time is before midnight.
+        #otherwise calculates to midnight. Partial hours paid
+        #at higher pre-bedtime rate.
+        ending_hour = int(endtime.hour)
+        if ending_hour < 17:
+            ending_hour = 24
+        if int(endtime.minute) > 0:
+            ending_hour += 1
+        bedtime_hour = int(bedtime.hour)
+        if int(bedtime.minute) > 0:
+            bedtime_hour += 1
+        number_of_hours = ending_hour - bedtime_hour
+        return (number_of_hours * self.bed_to_mid)       
+        
         
 
 if __name__ == '__main__':
