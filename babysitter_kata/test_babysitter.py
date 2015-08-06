@@ -20,10 +20,12 @@ class testBabysitter(unittest.TestCase):
 
     def testEndTime(self):
         #can't work too late
-        self.assertTrue(Babysit.check_start_time(self.babysitter, datetime.time(04,00)))
-        self.assertTrue(Babysit.check_start_time(self.babysitter, datetime.time(17,00)))
-        self.assertFalse(Babysit.check_start_time(self.babysitter, datetime.time(04,01)))
-        self.assertFalse(Babysit.check_start_time(self.babysitter, datetime.time(16,59)))
+        self.assertTrue(Babysit.check_end_time(self.babysitter, datetime.time(04,00)))
+        self.assertTrue(Babysit.check_end_time(self.babysitter, datetime.time(17,00)))
+        self.assertFalse(Babysit.check_end_time(self.babysitter, datetime.time(04,01)))
+        self.assertFalse(Babysit.check_end_time(self.babysitter, datetime.time(16,59)))
+
+    
         
 
 if __name__ == '__main__':
