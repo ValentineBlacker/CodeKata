@@ -9,7 +9,7 @@ class testBabysitter(unittest.TestCase):
     and that the kids had to be in bed by midnight, which is reasonable.
     """
 
-    #TODO: make sure end time is not before bedtime, bedtime not before start time
+    #TODO: collapse checking start and end times into 1 function
     
     def setUp(self):
         #init babysitter class
@@ -61,6 +61,16 @@ class testBabysitter(unittest.TestCase):
         #calculate total pay using previous methods
         self.assertEqual(120, Babysit.calculate_total(self.babysitter, time(19,30), time(22,30), time(3,30)))
         self.assertEqual(64, Babysit.calculate_total(self.babysitter, time(17,25), time(18,30), time(23,30)))
+
+    def test_IfTimesGivenAreRational(self):
+        #can't end before bedtime. bedtime can't be before start time.
+        self.assertTrue(Babysit.check_times_for_rationality(self.babysitter, time(18,30), time(18,45), time(19,00)))
+        self.assertTrue(Babysit.check_times_for_rationality(self.babysitter, time(18,00), time(19,30), time(19,45)))
+        self.assertFalse(Babysit.check_times_for_rationality(self.babysitter, time(18,45), time(18,30), time(19,00)))
+        self.assertFalse(Babysit.check_times_for_rationality(self.babysitter, time(18,00), time(19,45), time(19,30)))
+        self.assertFalse(Babysit.check_times_for_rationality(self.babysitter, time(19,30), time(19,45), time(19,00)))
+
+
 
 if __name__ == '__main__':
     unittest.main()

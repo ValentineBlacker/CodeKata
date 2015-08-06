@@ -10,7 +10,7 @@ class Babysit(object):
         
         self.start_to_bed = 12
         self.bed_to_mid = 8
-        self.mid_to_end = 16
+        self.mid_to_end = 16        
                 
     def check_start_time(self, starttime):
         #returns TRUE if start time is acceptable. Can start any time between 5:00 pm and 4:00 am
@@ -31,6 +31,27 @@ class Babysit(object):
         elif bedtime == time(00,00):
             return True
         else: return False
+
+    def check_times_for_rationality(self, starttime, bedtime, endtime):
+        #make sure endtime is after bedtime, and bedtime is after starttime
+        endtime_ok = False
+        if endtime.hour < 5:
+            endtime_ok = True
+        elif endtime.hour > bedtime.hour:
+            endtime_ok = True
+        elif endtime.hour == bedtime.hour and endtime.minute >= bedtime.minute:
+            endtime_ok = True
+        bedtime_ok = False
+        
+        if bedtime.hour > starttime.hour:
+            bedtime_ok = True
+        elif bedtime.hour == starttime.hour and bedtime.minute >= starttime.minute:
+            bedtime_ok = True
+            
+        if endtime_ok == True and bedtime_ok == True:
+            return True
+        else: return False
+            
 
     def pay_start_to_bed(self, starttime, bedtime):
         #we deal only with hours here, since we get paid for a full hour at start
