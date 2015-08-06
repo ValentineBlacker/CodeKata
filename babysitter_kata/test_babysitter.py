@@ -81,8 +81,16 @@ class testBabysitter(unittest.TestCase):
         self.assertEqual(time(12,34), self.babysitter.convert_raw_input('12:34'))
         self.assertEqual(None, self.babysitter.convert_raw_input('25:34'))
         self.assertEqual(None, self.babysitter.convert_raw_input('12:65'))
-        self.assertEqual(None, self.babysitter.convert_raw_input('12365'))
+        self.assertEqual(None, self.babysitter.convert_raw_input('123654'))
+        self.assertEqual(None, self.babysitter.convert_raw_input('3:45'))
         self.assertEqual(None, self.babysitter.convert_raw_input('agwgawea'))
+
+    def test_InputStartTime(self):
+        self.assertEqual(time(17,34), self.babysitter.handle_start_input('17:34'))
+        self.assertEqual(None, self.babysitter.handle_start_input('12:34'))
+        self.assertEqual(None, self.babysitter.handle_start_input('asdfdfs'))
+
+        
 
 
 if __name__ == '__main__':

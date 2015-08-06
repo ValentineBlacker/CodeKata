@@ -3,14 +3,11 @@ from datetime import time
 
 class Babysit(object):
     
-    def __init__(self, starttime = time(00,00), bedtime = time(00,00), endtime = time(00,00)):
-        self.start_time = starttime
-        self.bed_time = bedtime
-        self.end_time = endtime
-        
+    def __init__(self):
         self.start_to_bed = 12
         self.bed_to_mid = 8
-        self.mid_to_end = 16        
+        self.mid_to_end = 16
+       
                 
     def check_start_time(self, starttime):
         #returns TRUE if start time is acceptable. Can start any time between 5:00 pm and 4:00 am
@@ -124,6 +121,8 @@ class Babysit(object):
     def convert_raw_input(self, rawstring):
         #converts raw input to date object.
         #returns NONE if input cannot be converted.
+        if len(rawstring) >5 or len(rawstring) < 4:
+            return None
         if rawstring[:2].isdigit() and rawstring[3:].isdigit() and rawstring[2] == ':':       
             hours = int(rawstring[:2])
             minutes = int(rawstring[3:])
@@ -132,6 +131,18 @@ class Babysit(object):
             else: return None
         else: return None
 
+    def handle_start_input(self, starttime):
+        starttime = self.convert_raw_input(starttime)
+        if starttime == None:
+            print ('please format time correctly')
+            return None
+        if self.check_start_time(starttime) == False:
+            print ('start time too early')
+            return None
+        else: return starttime
+        
+    
+                
 if __name__ == '__main__':
     main = Babysit
     Babysit()
