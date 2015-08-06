@@ -137,9 +137,21 @@ class Babysit(object):
             print ('please format time correctly')
             return None
         if self.check_start_time(starttime) == False:
-            print ('start time too early')
+            print ('start time cannot be earlier than 17:00 or later than 04:00')
             return None
         else: return starttime
+
+    def handle_bed_input(self, bedtime):
+        bedtime = self.convert_raw_input(bedtime)
+        if bedtime == None:
+            print ('please format time correctly')
+            return None
+        if self.check_bed_time(bedtime) == False:
+            print ('bed time must be between 17:00 and 0:00')
+            return None
+        else: return bedtime
+
+    
         
     
                 
