@@ -122,9 +122,15 @@ class Babysit(object):
         return total
 
     def convert_raw_input(self, rawstring):
-        hours = int(rawstring[:2])
-        minutes = int(rawstring[3:])        
-        return time(hours,minutes)
+        #converts raw input to date object.
+        #returns NONE if input cannot be converted.
+        if rawstring[:2].isdigit() and rawstring[3:].isdigit() and rawstring[2] == ':':       
+            hours = int(rawstring[:2])
+            minutes = int(rawstring[3:])
+            if hours < 24 and minutes < 60:
+                return time(hours,minutes)
+            else: return None
+        else: return None
 
 if __name__ == '__main__':
     main = Babysit

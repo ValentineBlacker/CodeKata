@@ -77,8 +77,12 @@ class testBabysitter(unittest.TestCase):
         self.assertEqual(None, Babysit.test_and_calculate(self.babysitter, time(20,30), time(19,30), time(3,30)))
 
     def test_RawInputToTime(self):
-        #test if function can convert raw input to time object
+        #test if function can convert raw input to time object.        
         self.assertEqual(time(12,34), self.babysitter.convert_raw_input('12:34'))
+        self.assertEqual(None, self.babysitter.convert_raw_input('25:34'))
+        self.assertEqual(None, self.babysitter.convert_raw_input('12:65'))
+        self.assertEqual(None, self.babysitter.convert_raw_input('12365'))
+        self.assertEqual(None, self.babysitter.convert_raw_input('agwgawea'))
 
 
 if __name__ == '__main__':
