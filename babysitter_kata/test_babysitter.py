@@ -8,7 +8,7 @@ class testBabysitter(unittest.TestCase):
     I assumed that the babysitter could work for 0 minutes (but get paid $0 for it),
     and that the kids had to be in bed by midnight, which is reasonable.
     """
-      
+    
     def setUp(self):
         #init babysitter class
         self.babysitter = Babysit()
@@ -18,8 +18,7 @@ class testBabysitter(unittest.TestCase):
         self.assertTrue(Babysit.check_start_or_end_time(self.babysitter, time(17,00)))
         self.assertTrue(Babysit.check_start_or_end_time(self.babysitter, time(04,00)) )      
         self.assertFalse(Babysit.check_start_or_end_time(self.babysitter, time(04,01)))
-        self.assertFalse(Babysit.check_start_or_end_time(self.babysitter, time(16,59)) )
-         
+        self.assertFalse(Babysit.check_start_or_end_time(self.babysitter, time(16,59)) )       
 
     def test_BedTime(self):
         #kids need to be in bed before midnight, but after we've started sitting
@@ -27,7 +26,7 @@ class testBabysitter(unittest.TestCase):
         self.assertTrue(Babysit.check_bed_time(self.babysitter, time(17,00)))
         self.assertFalse(Babysit.check_bed_time(self.babysitter, time(00,01)))
         self.assertFalse(Babysit.check_bed_time(self.babysitter, time(04,59)))
-
+        
     def test_HoursPaidFromStartToBed(self):
         #make sure babysitter gets paid $12/hr from start to bedtime
         self.assertEqual(36, Babysit.pay_start_to_bed(self.babysitter, time(17,00),time(20,00)))
@@ -90,5 +89,4 @@ class testBabysitter(unittest.TestCase):
         self.assertEqual(None, self.babysitter.handle_end_input('asdfdfs'))
 
 if __name__ == '__main__':
-    unittest.main()
-    
+    unittest.main()    

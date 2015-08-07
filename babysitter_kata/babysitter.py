@@ -1,8 +1,11 @@
-
 from datetime import time
 import sys
 
 class Babysit(object):
+    """Calculate's a babysitter's pay. Pass 3 datetime objects to
+    test_and_calculate() if using object from another program.
+    Also runs handily in the terminal, and does error-checking
+    on raw strings. """
     
     def __init__(self):
         self.start_to_bed = 12
@@ -41,8 +44,7 @@ class Babysit(object):
             
         if endtime_ok == True and bedtime_ok == True:
             return True
-        else: return False
-            
+        else: return False            
 
     def pay_start_to_bed(self, starttime, bedtime):
         #we deal only with hours here, since we get paid for a full hour at start
@@ -53,7 +55,7 @@ class Babysit(object):
         if bedtime_hour == 0:
             bedtime_hour = 24
         if int(bedtime.minute) > 0:
-            bedtime_hour+= 1        
+            bedtime_hour += 1        
         number_of_hours = (bedtime_hour - int(starttime.hour))      
         if number_of_hours == 0:
             number_of_hours = 1
@@ -123,49 +125,53 @@ class Babysit(object):
             else: return None
         else: return None
 
-    def handle_start_input(self, starttime):        
+    def handle_start_input(self, starttime):
+        #checks start time input when called from terminal
         starttime = self.convert_raw_input(starttime)
         if starttime == None:
-            print ('please format time correctly. program now exiting.\n')
+            print ('Please format time correctly. Program now exiting.\n')
             return None        
         else: return starttime
 
     def handle_bed_input(self, bedtime):
+        #checks bed time input when called from terminal
         bedtime = self.convert_raw_input(bedtime)
         if bedtime == None:
-            print ('please format time correctly. program now exiting.\n')
+            print ('Please format time correctly. Program now exiting.\n')
             return None        
         else: return bedtime
 
     def handle_end_input(self, endtime):
+        #checks end time input when called from terminal
         endtime = self.convert_raw_input(endtime)
         if endtime == None:
-            print ('please format time correctly. program now exiting.\n')
+            print ('Please format time correctly. Program now exiting.\n')
             return None        
         else: return endtime
                 
 if __name__ == '__main__':
     main = Babysit
     babysitter = Babysit()
-    print ('\nwelcome to the babysitter pay calculator! the babysitter gets paid ${0} \n'.format(babysitter.start_to_bed) +\
+    print ('\nWelcome to the babysitter pay calculator! The babysitter gets paid ${0} \n'.format(babysitter.start_to_bed) +\
            'for each hour between start time and bedtime, ${0} for each hour between \n'.format(babysitter.bed_to_mid) +\
-           'between bedtime and midnigh, and ${0} for each hour after midnight. the \n'.format(babysitter.mid_to_end) +\
-           'babysitter cannot begin before 17:00 and must leave before 04:00. partial \n' +\
-           'hours are rounded up to full hours. \n\n' )
+           'between bedtime and midnight, and ${0} for each hour after midnight. The \n'.format(babysitter.mid_to_end) +\
+           'babysitter cannot begin before 17:00 and must leave before 04:00. Partial \n' +\
+           'hours are rounded up to full hours. \n \n' +\
+           'Times must be entered in 24-hour format.\n' )
         
-    raw_start = raw_input('please enter a starting time in HH:MM format.\n\n')
+    raw_start = raw_input('Please enter a starting time in HH:MM format.\n\n')
                           
     starttime = babysitter.handle_start_input(raw_start)
     print('\n')
     if starttime == None:
         sys.exit(0)
-    raw_bed = raw_input('please enter a bedtime in HH:MM format \n\n')
+    raw_bed = raw_input('Please enter a bedtime in HH:MM format \n\n')
                       
     bedtime = babysitter.handle_bed_input(raw_bed)
     print('\n')
     if bedtime == None:
         sys.exit(0)
-    raw_end = raw_input('please enter an ending time in HH:MM format \n\n')
+    raw_end = raw_input('Please enter an ending time in HH:MM format \n\n')
                        
     endtime = babysitter.handle_end_input(raw_end)
     print('\n')
@@ -173,10 +179,9 @@ if __name__ == '__main__':
         sys.exit(0)
     total_pay = babysitter.test_and_calculate(starttime, bedtime, endtime)
     if total_pay == None:
-        print('problem with times. start and end times must be between \n' +\
-               '17:00 and 04:00. bedtime must be before midnight. endtime \n' + \
-              'be after bedtime, and bedtime must be after start time.'+ \
-              'program now exiting.\n')
-    else: print ('your total pay will be ${0}\n'.format(total_pay))
+        print('Problem with times. Start and end times must be between \n' +\
+               '17:00 and 04:00. Bedtime must be before midnight. Endtime \n' + \
+              'be after bedtime, and bedtime must be after start time. '+ \
+              'Program now exiting.\n')
+    else: print ('The total pay will be ${0}\n'.format(total_pay))
     sys.exit(0)
-    
